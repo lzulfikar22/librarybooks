@@ -1,7 +1,7 @@
 ###################
-Books Project
+Library Books
 ###################
 
-Books Project digunakan sebagai sample project untuk keperluan perkuliahan di Pendidikan TIK FKIP Universitas Sebelas Maret. Books Project merupakan Web-based Project Application yang dibuat menggunakan Codeigniter PHP Framework.
+Repositori ini digunakan untuk keperluan UAS Mata Kuliah Pemograman Web PTIK UNS 2017
 
-Aplikasi ini secara umum digunakan untuk keperluan CRUD data buku.
+Halaman ini dapat diakses di https://library-book.herokuapp.com/
