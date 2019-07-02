@@ -1,5 +1,7 @@
 </div>
 </div>
+
+
 <!-- arahkan url ke direktori 'assets' -->
 <script src="<?php echo base_url();?>assets/jquery-3.3.1.slim.min.js.download" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
@@ -11,6 +13,7 @@
 		<script src="<?php echo base_url();?>assets/js/feather.min.js"></script>
         <script src="<?php echo base_url();?>assets/Chart.min.js.download"></script>
         
+		<?php if (isset($tampil)) { ?>
         <script>
 		  /* globals Chart:false, feather:false */
 
@@ -22,9 +25,9 @@
 		  feather.replace()
 
 		  // Graphs
-		  var ctx = document.getElementById('myChart')
-		  // eslint-disable-next-line no-unused-vars
-		  var myChart = new Chart(ctx, {
+			  var ctx = document.getElementById('myChart')
+			  // eslint-disable-next-line no-unused-vars
+			  var myChart = new Chart(ctx, {
 		    type: 'line',
 		    data: {
 		      labels: [
@@ -35,10 +38,10 @@
 		        'Disertasi',
 		        'Novel',
 				'Komik',
-		      ],
+			],
 		      datasets: [{
 		        data: [
-		        	<?php echo $countBukuTeks; ?>,
+					<?php echo $countBukuTeks; ?>,
 		        	<?php echo $countMajalah; ?>,
 		        	<?php echo $countSkripsi; ?>,
 		        	<?php echo $countThesis; ?>,
@@ -55,18 +58,19 @@
 		    },
 		    options: {
 		      scales: {
-		        yAxes: [{
+				  yAxes: [{
 		          ticks: {
-		            beginAtZero: false
+					  beginAtZero: false
 		          }
 		        }]
 		      },
 		      legend: {
-		        display: false
+				  display: false
 		      }
 		    }
 		  })
 		}())
 		</script>
+<?php } ?>
 
 </body></html>

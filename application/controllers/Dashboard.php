@@ -12,18 +12,22 @@ class Dashboard extends CI_Controller
 			// jika session 'username' blm ada, maka arahkan ke kontroller 'login'
 			redirect('login');
 		}
-		$data['fullname'] = $_SESSION['fullname'];
-		$data['role'] = $_SESSION['role'];
+		$data['fullname'] = $_SESSION['fullname']; // Untuk Nama
+		$data['role'] = $_SESSION['role']; // Untuk Role (Admin atau Operator)
+
+		//Memuat header
 		$this->load->view('dashboard/template/header', $data);
+
+		// Menentukan apakah dia Admin atau operator
 		if ($data['role'] == "admin") {
 			$this->load->view('dashboard/template/sidebar');
 		} elseif ($data['role'] == "operator") {
 			$this->load->view('dashboard/template/sidebar2');
 		}
 	}
+	// ------------------------------------------INDEX------------------------------------------------------------//
 
 	// halaman index dari dashboard -> menampilkan grafik statistik jumlah data buku berdasarkan kategori
-
 	public function index()
 	{
 
@@ -35,43 +39,36 @@ class Dashboard extends CI_Controller
 		$data['countDisertasi'] = $this->book_model->countByCat('5');
 		$data['countNovel'] = $this->book_model->countByCat('6');
 		$data['countKomik'] = $this->book_model->countByCat('7');
-
-		// baca data session 'fullname' untuk ditampilkan di view
+		$data['tampil'] = true;
 
 		// tampilkan view 'dashboard/index'
 		$this->load->view('dashboard/index');
 		$this->load->view('dashboard/template/footer', $data);
 	}
 
+	// ------------------------------------------BUKU------------------------------------------------------------//
 	// method untuk menambah data buku
 	public function add()
 	{
 		// panggil method getKategori() di model_book untuk membaca data list kategori dari tabel kategori untuk ditampilkan ke view
 		$data['kategori'] = $this->book_model->getKategori();
 
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
 		// tampilkan view 'dashboard/add'
 		$this->load->view('dashboard/adder/add', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		$this->load->view('dashboard/template/footer');
 	}
 
 	// method untuk menampilkan seluruh data buku
 	public function books()
 	{
-
 		// panggil method showBook() dari book_model untuk membaca seluruh data buku
 		$id = false;
 		$data['jumlah'] = $this->book_model->countAll();
 
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
+		// Mengatur Pagination
 		$config['base_url'] = base_url() . 'index.php/dashboard/books/';
 		$config['total_rows'] = $data['jumlah'];
 		$config['per_page'] = 5;
-		// $config['use_page_numbers'] = TRUE;
 		$config['full_tag_open'] = '<nav><ul class="pagination">';
 		$config['full_tag_close'] = '</ul></nav>';
 		$config['num_tag_open'] = '<li class="page-item">';
@@ -82,11 +79,14 @@ class Dashboard extends CI_Controller
 		$config['prev_link'] = FALSE;
 		$config['attributes'] = array('class' => 'page-link');
 		$from = $this->uri->segment(3);
+
+		// Nampilin data sebanyak 5 dari total
 		$data['book'] = $this->book_model->showBook($id, $config['per_page'], $from);
 		$this->pagination->initialize($config);
+
 		// tampilkan view 'dashboard/books'
 		$this->load->view('dashboard/books', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		$this->load->view('dashboard/template/footer');
 	}
 	public function view($idbuku)
 	{
@@ -94,12 +94,9 @@ class Dashboard extends CI_Controller
 		// panggil method showBook() dari book_model untuk membaca seluruh data buku
 		$data['book'] = $this->book_model->showBook($idbuku);
 
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
 		// tampilkan view 'dashboard/books'
 		$this->load->view('dashboard/view', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		$this->load->view('dashboard/template/footer');
 	}
 	public function edit($idbuku = FALSE)
 	{
@@ -108,70 +105,31 @@ class Dashboard extends CI_Controller
 
 		$data['kategori'] = $this->book_model->getKategori();
 
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
 		// tampilkan view 'dashboard/add'
 		$this->load->view('dashboard/edit/edit', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		$this->load->view('dashboard/template/footer');
 	}
 
+	// ------------------------------------------KATEGORI--------------------------------------------------------//
 	public function category()
 	{
 
-		// panggil method showBook() dari book_model untuk membaca seluruh data buku
+		// panggil method showCat() dari untuk membaca seluruh kategori
 		$data['cat'] = $this->cat_model->showCat();
 
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// tampilkan view 'dashboard/books'
+		// tampilkan view 'dashboard/category'
 		$this->load->view('dashboard/category', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		$this->load->view('dashboard/template/footer');
 	}
 
 	public function editcat($idcat = FALSE)
 	{
-		// Manggil Cat
+		// Manggil Category
 		$data['cat'] = $this->cat_model->showCat($idcat);
 
-		// $data['kategori'] = $this->book_model->getKategori();
-
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// tampilkan view 'dashboard/add'
+		// tampilkan view untuk edit kategori
 		$this->load->view('dashboard/edit/editcat', $data);
-		$this->load->view('dashboard/template/footer', $data);
-	}
-
-	public function user()
-	{
-
-		// panggil method showBook() dari book_model untuk membaca seluruh data buku
-		$data['user'] = $this->user_model->showUser();
-
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// tampilkan view 'dashboard/books'
-		$this->load->view('dashboard/user', $data);
-		$this->load->view('dashboard/template/footer', $data);
-	}
-
-	public function edituser($username = FALSE)
-	{
-		// Manggil Cat
-		$data['user'] = $this->user_model->showUser($username);
-
-		// $data['kategori'] = $this->book_model->getKategori();
-
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// tampilkan view 'dashboard/add'
-		$this->load->view('dashboard/edit/edituser', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		$this->load->view('dashboard/template/footer');
 	}
 
 	public function addcat()
@@ -179,25 +137,41 @@ class Dashboard extends CI_Controller
 		// panggil method getKategori() di model_book untuk membaca data list kategori dari tabel kategori untuk ditampilkan ke view
 		$data['kategori'] = $this->book_model->getKategori();
 
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// tampilkan view 'dashboard/add'
+		// tampilkan view add kategori
 		$this->load->view('dashboard/adder/addcat', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		$this->load->view('dashboard/template/footer');
 	}
+
+	// ---------------------------------------------USER--------------------------------------------------------//
+	public function user()
+	{
+
+		// panggil method showUser() untuk membaca seluruh user
+		$data['user'] = $this->user_model->showUser();
+
+		// tampilkan view user
+		$this->load->view('dashboard/user', $data);
+		$this->load->view('dashboard/template/footer');
+	}
+
+	public function edituser($username = FALSE)
+	{
+		// Manggil data seluruh user
+		$data['user'] = $this->user_model->showUser($username);
+
+		// tampilkan view edit user
+		$this->load->view('dashboard/edit/edituser', $data);
+		$this->load->view('dashboard/template/footer');
+	}
+
 	public function adduser()
 	{
-		// panggil method getKategori() di model_book untuk membaca data list kategori dari tabel kategori untuk ditampilkan ke view
-		$data['kategori'] = $this->book_model->getKategori();
-
-		// baca data session 'fullname' untuk ditampilkan di view
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// tampilkan view 'dashboard/add'
-		$this->load->view('dashboard/adder/adduser', $data);
-		$this->load->view('dashboard/template/footer', $data);
+		// tampilkan view 'dashboard/user
+		$this->load->view('dashboard/adder/adduser');
+		$this->load->view('dashboard/template/footer');
 	}
+
+	// ------------------------------------------LOGOUT--------------------------------------------------------//
 
 	// method untuk proses logout
 	public function logout()

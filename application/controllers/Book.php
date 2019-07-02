@@ -25,18 +25,12 @@ class Book extends CI_Controller
 	// method untuk tambah data buku
 	public function insert()
 	{
-
-		// target direktori fileupload
-		$target_dir = "c:/xampp/htdocs/books/assets/images/";
+		$config['upload_path'] = './assets/images/';
+		$this->load->library('upload', $config);
+		$this->upload->do_upload('imgcover');
 
 		// baca nama file upload
 		$filename = $_FILES["imgcover"]["name"];
-
-		// menggabungkan target dir dengan nama file
-		$target_file = $target_dir . basename($filename);
-
-		// proses upload
-		move_uploaded_file($_FILES["imgcover"]["tmp_name"], $target_file);
 
 		// baca data dari form insert buku
 		$judul = $_POST['judul'];
@@ -56,18 +50,11 @@ class Book extends CI_Controller
 	// method untuk edit data buku berdasarkan id
 	public function edit()
 	{
-
-		// target direktori fileupload
-		$target_dir = "c:/xampp/htdocs/books/assets/images/";
-
+		$config['upload_path'] = './assets/images/';
+		$this->load->library('upload', $config);
+		$this->upload->do_upload('imgcover');
 		// baca nama file upload
 		$filename = $_FILES["imgcover"]["name"];
-
-		// menggabungkan target dir dengan nama file
-		$target_file = $target_dir . basename($filename);
-		
-		// proses upload
-		move_uploaded_file($_FILES["imgcover"]["tmp_name"], $target_file);
 
 		// baca data dari form insert buku
 		$judul = $_POST['judul'];
