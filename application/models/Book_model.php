@@ -23,7 +23,7 @@ class Book_model extends CI_Model
 	}
 	public function editBook($judul, $pengarang, $penerbit, $thnterbit, $sinopsis, $idkategori, $filename, $idbuku)
 	{
-		if ($filename == '') {
+		if ($filename == "") {
 			$data = array(
 				"judul" => $judul,
 				"pengarang" => $pengarang,
