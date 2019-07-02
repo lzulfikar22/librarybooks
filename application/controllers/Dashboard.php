@@ -69,15 +69,15 @@ class Dashboard extends CI_Controller
 		$config['base_url'] = base_url() . 'index.php/dashboard/books/';
 		$config['total_rows'] = $data['jumlah'];
 		$config['per_page'] = 5;
-		$config['full_tag_open'] = '<nav><ul class="pagination">';
-		$config['full_tag_close'] = '</ul></nav>';
-		$config['num_tag_open'] = '<li class="page-item">';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="page-item active"> <span class="page-link">';
-		$config['cur_tag_close'] = '<span class="sr-only">(current)</span></span></li>';
-		$config['next_link'] = FALSE;
-		$config['prev_link'] = FALSE;
-		$config['attributes'] = array('class' => 'page-link');
+		// $config['full_tag_open'] = '<nav><ul class="pagination">';
+		// $config['full_tag_close'] = '</ul></nav>';
+		// $config['num_tag_open'] = '<li class="page-item">';
+		// $config['num_tag_close'] = '</li>';
+		// $config['cur_tag_open'] = '<li class="page-item active"> <span class="page-link">';
+		// $config['cur_tag_close'] = '<span class="sr-only">(current)</span></span></li>';
+		// $config['next_link'] = FALSE;
+		// $config['prev_link'] = FALSE;
+		// $config['attributes'] = array('class' => 'page-link');
 		$from = $this->uri->segment(3);
 
 		// Nampilin data sebanyak 5 dari total
