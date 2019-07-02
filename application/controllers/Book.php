@@ -25,12 +25,16 @@ class Book extends CI_Controller
 	// method untuk tambah data buku
 	public function insert()
 	{
+		$temp = explode(".", $_FILES["imgcover"]["name"]);
+		$name = date('YmdHis') . '.' . end($temp);
 		$config['upload_path'] = './assets/images/';
-		$this->load->library('upload', $config);
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['file_name'] = $name;
+		$this->upload->initialize($config);
 		$this->upload->do_upload('imgcover');
 
 		// baca nama file upload
-		$filename = $_FILES["imgcover"]["name"];
+		// $filename = $_FILES["imgcover"]["name"];
 
 		// baca data dari form insert buku
 		$judul = $_POST['judul'];
@@ -41,20 +45,24 @@ class Book extends CI_Controller
 		$idkategori = $_POST['idkategori'];
 
 		// panggil method insertBook() di model 'book_model' untuk menjalankan query insert
-		$this->book_model->insertBook($judul, $pengarang, $penerbit, $thnterbit, $sinopsis, $idkategori, $filename);
-		
+		$this->book_model->insertBook($judul, $pengarang, $penerbit, $thnterbit, $sinopsis, $idkategori, $name);
+
 		// arahkan ke method 'books' di kontroller 'dashboard'
 		redirect('dashboard/books');
 	}
-	
+
 	// method untuk edit data buku berdasarkan id
 	public function edit()
 	{
+		$temp = explode(".", $_FILES["imgcover"]["name"]);
+		$name = date('YmdHis') . '.' . end($temp);
 		$config['upload_path'] = './assets/images/';
-		$this->load->library('upload', $config);
-		$this->upload->do_upload('imgcover');
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['file_name'] = $name;
+		$this->upload->initialize($config);
+		$this->upload->do_upload("imgcover");
 		// baca nama file upload
-		$filename = $_FILES["imgcover"]["name"];
+		// $filename = $_FILES["imgcover"]["name"];
 
 		// baca data dari form insert buku
 		$judul = $_POST['judul'];
@@ -65,7 +73,7 @@ class Book extends CI_Controller
 		$idkategori = $_POST['idkategori'];
 		$idbuku = $_POST['idbuku'];
 
-		$this->book_model->editBook($judul, $pengarang, $penerbit, $thnterbit, $sinopsis, $idkategori, $filename, $idbuku);
+		$this->book_model->editBook($judul, $pengarang, $penerbit, $thnterbit, $sinopsis, $idkategori, $name, $idbuku);
 
 		redirect('dashboard/books');
 	}
