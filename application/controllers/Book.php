@@ -60,9 +60,15 @@ class Book extends CI_Controller
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['file_name'] = $name;
 		$this->upload->initialize($config);
-		$this->upload->do_upload("imgcover");
+		// $this->upload->do_upload("imgcover");
 		// baca nama file upload
 		// $filename = $_FILES["imgcover"]["name"];
+
+		if (!$this->upload->do_upload('imgcover')) {
+			$filename = "";
+		} else {
+			$filename = $name;
+		}
 
 		// baca data dari form insert buku
 		$judul = $_POST['judul'];
@@ -73,7 +79,7 @@ class Book extends CI_Controller
 		$idkategori = $_POST['idkategori'];
 		$idbuku = $_POST['idbuku'];
 
-		$this->book_model->editBook($judul, $pengarang, $penerbit, $thnterbit, $sinopsis, $idkategori, $name, $idbuku);
+		$this->book_model->editBook($judul, $pengarang, $penerbit, $thnterbit, $sinopsis, $idkategori, $filename, $idbuku);
 
 		redirect('dashboard/books');
 	}
