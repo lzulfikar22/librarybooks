@@ -17,13 +17,8 @@ class Dashboard extends CI_Controller
 
 		//Memuat header
 		$this->load->view('dashboard/template/header', $data);
+		$this->load->view('dashboard/template/sidebar');
 
-		// Menentukan apakah dia Admin atau operator
-		if ($data['role'] == "admin") {
-			$this->load->view('dashboard/template/sidebar');
-		} elseif ($data['role'] == "operator") {
-			$this->load->view('dashboard/template/sidebar2');
-		}
 	}
 	// ------------------------------------------INDEX------------------------------------------------------------//
 
