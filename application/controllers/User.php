@@ -12,7 +12,7 @@ class User extends CI_Controller {
 	}
 
 
-	// method hapus data buku berdasarkan id
+	// method hapus user berdasarkan id
 	public function delete($username){
 		if ($username == $_SESSION['username']) {
 			redirect('dashboard/user');
@@ -22,23 +22,23 @@ class User extends CI_Controller {
 		redirect('dashboard/user');
 	}
 
-	// method untuk tambah data buku
+	// method untuk tambah user
 	public function insert(){
 
-		// baca data dari form insert buku
+		// baca data dari form insert user
 		$username = $_POST['username'];
 		$fullname = $_POST['fullname'];
 		$password = $_POST['password'];
 		$role = $_POST['role'];
 
-		// panggil method insertBook() di model 'book_model' untuk menjalankan query insert
+		// panggil method insertUser() di model 'user_model' untuk menjalankan query insert
 		$this->user_model->insertUser($username, $fullname, $password, $role);
 
-		// arahkan ke method 'books' di kontroller 'dashboard'
+		// arahkan ke method 'user' di kontroller 'dashboard'
 		redirect('dashboard/user');
 	}
 
-	// method untuk edit data buku berdasarkan id
+	// method untuk edit user berdasarkan id
 	public function edit(){
 		$username = $_POST['username'];
 		$fullname = $_POST['fullname'];
@@ -46,33 +46,9 @@ class User extends CI_Controller {
 		$role = $_POST['role'];
 		$old_username = $_POST['old_username'];
 
-		// panggil method insertBook() di model 'book_model' untuk menjalankan query insert
+		// panggil method insertUser() di model 'user_model' untuk menjalankan query insert
 		$this->user_model->editUser($username, $fullname, $password, $role, $old_username);
 		redirect('dashboard/user');
 	}
-
-	// method untuk update data buku berdasarkan id
-	public function update($id){
-
-	}
-
-	// method untuk mencari data buku berdasarkan 'key'
-	public function findbooks(){
-		
-		// baca key dari form cari data
-		$key = $_POST['key'];
-
-		// ambil session fullname untuk ditampilkan ke header
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// panggil method findBook() dari model book_model untuk menjalankan query cari data
-		$data['book'] = $this->book_model->findBook($key);
-
-		// tampilkan hasil pencarian di view 'dashboard/books'
-		$this->load->view('dashboard/header', $data);
-        $this->load->view('dashboard/books', $data);
-        $this->load->view('dashboard/footer');
-	}
-
 }
 ?>

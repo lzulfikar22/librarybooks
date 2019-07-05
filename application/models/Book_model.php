@@ -92,4 +92,5 @@ class Book_model extends CI_Model
 		$query = $this->db->query("SELECT COUNT(*) as jum from books");
 		return $query->row()->jum;
 	}
+	
 }

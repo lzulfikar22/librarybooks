@@ -12,27 +12,27 @@ class Category extends CI_Controller {
 	}
 
 
-	// method hapus data buku berdasarkan id
+	// method hapus kategori berdasarkan id
 	public function delete($id){
 		$this->cat_model->delCat($id);
 		// arahkan ke method 'books' di kontroller 'dashboard'
 		redirect('dashboard/category');
 	}
 
-	// method untuk tambah data cat
+	// method untuk tambah data kategori
 	public function insert(){
 
-		// baca data dari form insert cat
+		// baca data dari form insert kategori
 		$category = $_POST['category'];
 
-		// panggil method insertBook() di model 'book_model' untuk menjalankan query insert
+		// panggil method insertBook() di model 'cat_model' untuk menjalankan query insert
 		$this->cat_model->insertCat($category);
 
-		// arahkan ke method 'books' di kontroller 'dashboard'
+		// arahkan ke method 'category' di kontroller 'dashboard'
 		redirect('dashboard/category');
 	}
 
-	// method untuk edit data buku berdasarkan id
+	// method untuk edit kategori berdasarkan id
 	public function edit(){
 		$kategori = $_POST['category'];
 		$idkategori = $_POST['idkategori'];
@@ -41,24 +41,5 @@ class Category extends CI_Controller {
 
 		redirect('dashboard/category');
 	}
-
-	// method untuk mencari data buku berdasarkan 'key'
-	public function findbooks(){
-		
-		// baca key dari form cari data
-		$key = $_POST['key'];
-
-		// ambil session fullname untuk ditampilkan ke header
-		$data['fullname'] = $_SESSION['fullname'];
-
-		// panggil method findBook() dari model book_model untuk menjalankan query cari data
-		$data['book'] = $this->book_model->findBook($key);
-
-		// tampilkan hasil pencarian di view 'dashboard/books'
-		$this->load->view('dashboard/header', $data);
-        $this->load->view('dashboard/books', $data);
-        $this->load->view('dashboard/footer');
-	}
-
 }
 ?>

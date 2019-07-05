@@ -65,4 +65,10 @@ class Cat_model extends CI_Model
         $query = $this->db->query("SELECT count(*) as jum FROM books WHERE idkategori = '$idkategori'");
         return $query->row()->jum;
     }
+    public function namaKategori($idbuku){
+		$this->db->select('kategori');
+		$this->db->where('idkategori', $idbuku);
+		$query = $this->db->get('category');
+		return $query->row_array();
+	}
 }

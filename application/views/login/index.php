@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Jekyll v3.8.5">
-  <title>Signin Template · Bootstrap</title>
+  <title>Library-Book Login</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
 
@@ -35,6 +35,7 @@
   </style>
   <!-- Custom styles for this template -->
   <link href="<?php echo base_url(); ?>assets/signin.css" rel="stylesheet">
+  <?php echo link_tag('assets/icon/notebook.png', 'shortcut icon', 'image/ico'); ?>
 </head>
 
 <body class="text-center">
@@ -48,8 +49,8 @@
   <form class="form-signin" method="post" action="<?php echo site_url('login/submit'); ?>">
 
     <!-- arahkan url ke direktori 'assets' -->
-    <img class="mb-4" src="<?php echo base_url(); ?>assets/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <img class="mb-4" src="<?php echo base_url(); ?>assets/icon/agenda.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Selamat Datang</h1>
     <label for="inputUsername" class="sr-only">Username</label>
     <input type="text" name="username" class="form-control" placeholder="Username" required="" autofocus="">
     <label for="inputPassword" class="sr-only">Password</label>

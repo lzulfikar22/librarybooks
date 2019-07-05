@@ -25,15 +25,13 @@ class Dashboard extends CI_Controller
 	// halaman index dari dashboard -> menampilkan grafik statistik jumlah data buku berdasarkan kategori
 	public function index()
 	{
-
+		$data['kategori'] = $this->cat_model->showCat();
 		// panggil method countByCat() di model book_model untuk menghitung jumlah data buku per kategori untuk ditampilkan di view
-		$data['countBukuTeks'] = $this->book_model->countByCat('1');
-		$data['countMajalah'] = $this->book_model->countByCat('2');
-		$data['countSkripsi'] = $this->book_model->countByCat('3');
-		$data['countThesis'] = $this->book_model->countByCat('4');
-		$data['countDisertasi'] = $this->book_model->countByCat('5');
-		$data['countNovel'] = $this->book_model->countByCat('6');
-		$data['countKomik'] = $this->book_model->countByCat('7');
+		$i = 1;
+		foreach ($data['kategori'] as $cat) {
+			$data[$cat['idkategori']] = $this->book_model->countByCat($cat['idkategori']);
+		}
+		
 		$data['tampil'] = true;
 
 		// tampilkan view 'dashboard/index'
@@ -88,7 +86,6 @@ class Dashboard extends CI_Controller
 
 		// panggil method showBook() dari book_model untuk membaca seluruh data buku
 		$data['book'] = $this->book_model->showBook($idbuku);
-
 		// tampilkan view 'dashboard/books'
 		$this->load->view('dashboard/view', $data);
 		$this->load->view('dashboard/template/footer');

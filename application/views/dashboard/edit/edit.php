@@ -76,12 +76,13 @@
               <input type="file" class="form-control-file" name="imgcover">
           </div>
       </div>
+      
       <input type="hidden" name ="idbuku" value="<?php echo $book['idbuku']?>" />
 
       <div class="form-group row">
           <div class="col-sm-2"></div>
           <div class="col-sm-10">
-              <button type="submit" class="btn btn-primary mb-2">Submit Data Buku</button>
+              <button type="submit" class="btn btn-primary mb-2">Submit Buku</button>
           </div>
       </div>
      </form> </main>

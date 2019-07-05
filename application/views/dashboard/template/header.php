@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Jekyll v3.8.5">
-  <title>Dashboard Template · Bootstrap</title>
+  <title>Library-Book Dashboard</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/dashboard/">
 
@@ -37,6 +37,7 @@
   <!-- Custom styles for this template -->
   <!-- arahkan url ke direktori 'assets' -->
   <link href="<?php echo base_url(); ?>assets/dashboard.css" rel="stylesheet">
+  <?php echo link_tag('assets/icon/notebook.png', 'shortcut icon', 'image/ico'); ?>
   <style type="text/css">
     /* Chart.js */
     @-webkit-keyframes chartjs-render-animation {
